@@ -1,0 +1,107 @@
+npm (node package manager)
+ + npm install create-react-app => cài đặt thư viện create-react-app về máy tính
+ + create-react-app bc11-react => dùng thư viên create-react-app để khởi tạo project react
+
+npx (npm package executor)
+ + npx create-react-app bc11-react => kết nối lên npm chạy thư viện create-react-app và cài đặt project react
+
+=======================================================================================
+
+- Angular, React, Vue là các thư viện và framework giúp xây dựng trang web theo hướng Single page application
+Tham khảo: https://toidicodedao.com/2018/09/11/su-khac-biet-giua-server-side-rendering-va-client-side-rendering
+
+=======================================================================================
+
+React sử dụng cú pháp jsx để xây dựng giao diện
+- JSX: Javascript + XML
+- JSX cho phép ta viết html và javascript chung với nhau
+- Khi sử dụng JSX có 1 số cú pháp cần lưu ý
+  + class => className: <div class="demo"></div> => <div className="demo"></div>
+  + style:
+    <div style="width: 100%"></div> => <div style={{width: '100%'}}></div>
+    <div style="background-color: 100%"></div> => <div style={{backgroundColor: '100%'}}></div>
+  + Attribute: <div tab-index="0"></div> => <div tabIndex="0"></div>
+  + for: <label for="name"></label> => <label htmlFor="name"></label>
+
+Snippet: Cài extension https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+ - rcc: tạo class component
+ - rfc, rafc: tạo function component
+
+Style:
+ - Sử dụng bằng cách import vào component, Eg: import './style.css';
+   + Tuy nhiên cách import này có 1 nhược điểm là tuy ta chỉ import vào 1 component nhưng tất cả component khác đều hiểu class trong file css này
+ - Sử dụng css module, Eg: import style from './style.module.css', <div className={style.title}></div>
+   + Sử dụng cách này thì chỉ những component nào import file css này thì mới có thể sử dụng class trong file css
+ - Sử dụng scss bằng cách cài đặt thư viện sass: npm install -D sass
+
+=======================================================================================
+
+State:
+ - State là một object được sử dụng để quản lý trạng thái của components
+ - State chỉ tồn tại trong phạm vi của components chứa nó
+ - Mỗi khi state thay đổi thì component đó sẽ được render lại.
+ - Để cập nhật state ta sử dụng phương thức this.setState
+ - Không thay đổi trực tiếp state mà phải thông qua hàm this.setState
+    Wrong                                       Correct
+    this.state.comment = 'Hello';               this.setState({comment: 'Hello'});
+ - setState là hàm bất đồng bộ, nếu cần lấy kết qua sau khi setState ta sẽ lấy trong tham số thứ 2 của hàm setState là 1 callback function
+    Eg: this.setState({message: 'Hello'}, () => { console.log(this.state.message) })
+
+
+=======================================================================================
+
+Props:
+ - Props là một object chứa dữ liệu được truyền từ component cha
+ - Khi components cha truyền cho component con một props thì components con chỉ có thể đọc và không có quyền chỉnh sửa nó
+ - Mỗi khi props thay đổi thì component đó sẽ được render lại.
+
+
+
+=> Về cơ bản state và props đều dùng để quản lý trạng thái của component
+              State                                                      Props
+  - Được khởi tạo trong chính component và                           - Được thiết lập bởi component cha và
+  không thể được sử dụng bởi các component khác                      truyền xuống cho các component con
+  - Chỉ component sở hữu state có thể thay đổi nó                    - Component con không thể thay đổi props
+  - Làm cho component tương tác với người dùng                       - Dùng để hiển thị dữ liệu được nhận
+  => sử dụng state khi muốn cập nhật trạng thái của component
+  - Ta có thể dùng state làm props của component con                 - Ta có thể truyền props giữa các component với nhau
+
+Đọc thêm: https://flatlogic.com/blog/what-is-the-difference-between-state-and-props-in-react/
+
+
+=======================================================================================
+
+Lifecycle: https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+=======================================================================================
+
+Hooks:
+ Rules:
+  - Không được gọi hooks bên trong loops, conditions, hoặc một function bên trong component
+  - Chỉ được gọi hooks bên trong react function component
+
+  function Demo() {
+    const [count, setCount] = useState(0) => ok
+
+    useEffect(() => {}) => ok
+
+    if(true) {
+      const [count, setCount] = useState(0) => lỗi
+      useEffect(() => {}) => lỗi
+    }
+
+    const handleChange = () => {
+      const [count, setCount] = useState(0) => lỗi
+      useEffect(() => {}) => lỗi
+    }
+
+    return <div></div>
+  }
+
+Custom hooks
+https://usehooks.com
+https://github.com/streamich/react-use
+
+
+
+
